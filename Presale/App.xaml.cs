@@ -1,12 +1,20 @@
-﻿namespace Presale;
+﻿using Presale.Interfaces;
+
+namespace Presale;
 
 public partial class App : Application
 {
-	public App()
+    public static IServiceProvider Services;
+    public static IAlertService AlertService;
+
+	public App(IServiceProvider provider)
 	{
 		InitializeComponent();
 
-		MainPage = new AppShell();
+        Services = provider;
+        AlertService = Services.GetService<IAlertService>();
+
+        MainPage = new AppShell();
 	}
     protected override void OnStart()
     {

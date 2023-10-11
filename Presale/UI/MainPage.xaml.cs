@@ -1,4 +1,4 @@
-﻿namespace Presale.Pages;
+﻿namespace Presale.UI;
 
 public partial class MainPage : ContentPage
 {
@@ -20,5 +20,17 @@ public partial class MainPage : ContentPage
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
 	}
+
+	private void Alert(object sender, EventArgs e)
+	{
+        Task.Run(async () =>
+        {
+            await Task.Delay(2000);
+            App.AlertService.ShowConfirmation("Title", "Confirmation message.", (result =>
+            {
+                App.AlertService.ShowAlert("Result", $"{result}");
+            }));
+        });
+    }
 }
 

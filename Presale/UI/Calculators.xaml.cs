@@ -1,4 +1,4 @@
-namespace Presale.Pages;
+namespace Presale.UI;
 
 public partial class Calculators : ContentPage
 {

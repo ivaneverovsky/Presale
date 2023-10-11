@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Presale.Pages.MainPage">
+             x:Class="Presale.UI.MainPage"
+             Title="Запросы">
 
     <ScrollView>
         <VerticalStackLayout
@@ -21,6 +22,12 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center" />
+
+            <Button
+            x:Name="AlertBtn"
+            Text="Alert me"
+            Clicked="Alert"
+            HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>
