@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Presale.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Presale.Pages"
+    Shell.FlyoutBehavior="Disabled">
+
+    <TabBar>
+
+        <ShellContent
+    Title="Запросы"
+    ContentTemplate="{DataTemplate local:MainPage}"
+    Route="MainPage" />
+
+        <ShellContent 
+    Title="Калькуляторы"
+    ContentTemplate="{DataTemplate local:Calculators}"
+    Route="Calculators" />
+
+        <ShellContent 
+    Title="Задачи"
+    ContentTemplate="{DataTemplate local:Plan}"
+    Route="Plan" />
+
+    </TabBar>
+
+</Shell>
