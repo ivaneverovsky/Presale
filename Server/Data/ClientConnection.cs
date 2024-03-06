@@ -20,20 +20,40 @@ namespace Server.Data
         {
             TcpListener listener = new TcpListener(IPAddress.Any, PortNum);
             listener.Start();
-            MessageBox.Show("Waiting for connection", "Server alert");
+           // MessageBox.Show("Waiting for connection", "Server alert");
 
             socket = listener.AcceptSocket();
             MessageBox.Show("Client connected", "Server alert");
         }
 
-        public void ReceiveClientRequest()
+        public async Task ReceiveClientRequest()
+        {
+            while (true)
+            {
+                await Task.Delay(3000);
+                await Task.Run(() => ReadRequest());
+            }
+        }
+
+        public void ReadRequest()
         {
             byte[] buf = new byte[InByfferSize];
-            if (socket?.Available > 0)
+            try
             {
-                int received = socket.Receive(buf);
-                if (received > 0)
-                    MessageBox.Show(Encoding.ASCII.GetString(buf, 0, received), "Server alert");
+                if (socket?.Available > 0)
+                {
+                    int received = socket.Receive(buf);
+                    string request = "";
+                    if (received > 0)
+                    {
+                        request = Encoding.UTF8.GetString(buf, 0, received);
+                        MessageBox.Show(request, "Server alert");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Server error");
             }
         }
 

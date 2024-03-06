@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Start" Click="StartReceivingRequest" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Content="Start server" Click="StartReceivingRequest" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>

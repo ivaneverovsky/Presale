@@ -1,0 +1,17 @@
+﻿<Window x:Class="Presale.UI.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presale.UI"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="800">
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Margin="288,177,0,0" TextWrapping="Wrap" Name="txtLogin" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox HorizontalAlignment="Left" Margin="288,200,0,0" Name="txtPassword" VerticalAlignment="Top" Width="120"/>
+        <Label Content="login" HorizontalAlignment="Left" Margin="246,173,0,0" VerticalAlignment="Top"/>
+        <Label Content="password" HorizontalAlignment="Left" Margin="222,196,0,0" VerticalAlignment="Top"/>
+        <Button Content="Sign in" Click="SignIn" HorizontalAlignment="Left" Margin="288,223,0,0" VerticalAlignment="Top"/>
+        <Button Content="Registration" Click="Register" HorizontalAlignment="Left" Margin="341,223,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

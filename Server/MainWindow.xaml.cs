@@ -25,9 +25,9 @@ namespace Server
             client.ConnectClient();
         }
 
-        public void StartReceivingRequest(object sender, RoutedEventArgs e)
+        public async void StartReceivingRequest(object sender, RoutedEventArgs e)
         {
-            client.ReceiveClientRequest();
+            await client.ReceiveClientRequest();
         }
     }
 }

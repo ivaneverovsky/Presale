@@ -12,9 +12,6 @@ using System.Windows.Shapes;
 
 namespace Presale
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         ServerConnection server = new ServerConnection();
@@ -29,8 +26,14 @@ namespace Presale
         }
         public void SendMessage(object sender, RoutedEventArgs e)
         {
-            server.SendServerRequest(txtMessage.Text);
-            txtMessage.Clear();
+            string message = txtMessage.Text;
+            if (message != "")
+            {
+                server.SendServerRequest(message);
+
+                txtMessage.Clear();
+                txtMessage.Focus();
+            }
         }
     }
 }
