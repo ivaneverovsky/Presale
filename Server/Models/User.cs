@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Presale.Models
+namespace Server.Models
 {
-    class User
+    internal class User
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -26,7 +26,6 @@ namespace Presale.Models
             AccountType = accountType;
             Login = login;
             Password = password;
-
         }
     }
 }

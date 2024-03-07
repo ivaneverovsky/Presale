@@ -17,22 +17,29 @@ namespace Presale.Data
 
         public void ConnectServer()
         {
-            client.Connect(IPAddress.Loopback, PortNum);
-            MessageBox.Show("Connected", "Alert");
+            try
+            {
+                client.Connect(IPAddress.Loopback, PortNum);
+                MessageBox.Show("Connected", "Alert");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
-        public void SendServerRequest(string line)
+        public void SendServerRequest(string message)
         {
             socket = client.Client;
-            if (line != "")
+            if (message != "")
             {
                 try
                 {
-                    socket.Send(Encoding.ASCII.GetBytes(line));
+                    socket.Send(Encoding.ASCII.GetBytes(message));
                 }
-                catch (SocketException)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Send failed", "Error");
+                    MessageBox.Show("Send failed\n" + ex.Message, "Error");
                     if (!socket.Connected)
                     {
                         return;
