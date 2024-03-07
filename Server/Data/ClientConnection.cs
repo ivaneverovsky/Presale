@@ -56,15 +56,22 @@ namespace Server.Data
                             case "/message":
                                 {
                                     result = method[1].Substring(1, method[1].Length - 2);
-
                                     MessageBox.Show(result);
+
                                     break;
                                 }
                             case "/filter":
                                 {
                                     result = method[1].Substring(1, method[1].Length - 2);
-
                                     MessageBox.Show(result);
+
+                                    break;
+                                }
+                            case "/auth":
+                                {
+                                    result = method[1].Substring(1, method[1].Length - 2);
+                                    MessageBox.Show(result);
+
                                     break;
                                 }
                             default:
@@ -82,8 +89,8 @@ namespace Server.Data
         public void DisconnectClient()
         {
             socket?.Disconnect(false);
+            socket?.Shutdown(SocketShutdown.Both);
             socket?.Close();
-            MessageBox.Show("Closed connection.", "Server alert");
         }
     }
 }

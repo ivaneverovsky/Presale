@@ -27,11 +27,30 @@ namespace Presale.Data
                 MessageBox.Show(ex.Message, "Error");
             }
         }
-
-        public void SendServerMessage(string message)
+        public void CheckAuth(string login, string password)
         {
             socket = client.Client;
-            if (message != "")
+            try
+            {
+                string requestAuth = "/auth:[login " + login + "\npassword " + password + "]";
+                MessageBox.Show(requestAuth);
+
+                socket.Send(Encoding.UTF8.GetBytes(requestAuth));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Send failed\n" + ex.Message, "Error");
+                if (!socket.Connected)
+                {
+                    return;
+                }
+            }
+            return;
+        }
+        public void SendServerMessage(string userLogin, string chatId, string message)
+        {
+            socket = client.Client;
+            if (userLogin != "" && chatId != "" && message != "")
             {
                 try
                 {
@@ -48,12 +67,7 @@ namespace Presale.Data
                     }
                 }
             }
-            else
-            {
-                return;
-            }
         }
-
         public void SendServerFilter(string filter)
         {
             socket = client.Client;
@@ -74,18 +88,12 @@ namespace Presale.Data
                     }
                 }
             }
-            else
-            {
-                return;
-            }
         }
-
         public void DisconnectServer()
         {
             socket?.Disconnect(false);
-
+            socket?.Shutdown(SocketShutdown.Both);
             client.Close();
-            MessageBox.Show("Connection closed", "Alert");
         }
     }
 }

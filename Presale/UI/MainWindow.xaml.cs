@@ -1,4 +1,5 @@
 ﻿using Presale.Data;
+using Presale.UI;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,8 +16,20 @@ namespace Presale
     public partial class MainWindow : Window
     {
         ServerConnection server = new ServerConnection();
+        Calculation _calc = new Calculation();
+        Authentification _auth = new Authentification("", "");
+
+        Login _login = new Login("", "");
+
+        List<Authentification> auth = new List<Authentification>();
+
         public MainWindow()
         {
+            _login.ShowDialog();
+            _auth = new Authentification(_login.UserLogin, _login.UserPassword);
+            _calc.AddAuth(_auth);
+            auth = _calc.CollectAuth();
+
             InitializeComponent();
         }
 
@@ -26,10 +39,12 @@ namespace Presale
         }
         public void SendMessage(object sender, RoutedEventArgs e)
         {
+
+            string chatId = "1";
             string message = txtMessage.Text;
             if (message != "")
             {
-                server.SendServerMessage(message);
+                server.SendServerMessage("", chatId, message);
 
                 txtMessage.Clear();
                 txtMessage.Focus();
