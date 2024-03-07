@@ -20,9 +20,18 @@ namespace Server
         public MainWindow()
         {
             InitializeComponent();
+            StartServer();
         }
 
-        public async void StartReceivingRequest(object sender, RoutedEventArgs e)
+        public void StartReceivingRequest(object sender, RoutedEventArgs e)
+        {
+            //await _db.CreateConnection();
+
+            //client.ConnectClient();
+            //await client.ReceiveClientRequests();
+        }
+
+        private async void StartServer()
         {
             await _db.CreateConnection();
 

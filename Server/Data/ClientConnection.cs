@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Server.Data
@@ -25,7 +21,6 @@ namespace Server.Data
             socket = listener.AcceptSocket();
             MessageBox.Show("Client connected", "Server alert");
         }
-
         public async Task ReceiveClientRequests()
         {
             while (true)
@@ -34,7 +29,6 @@ namespace Server.Data
                 await Task.Run(() => ReadRequest());
             }
         }
-
         public void ReadRequest()
         {
             byte[] buf = new byte[InByfferSize];
@@ -55,8 +49,11 @@ namespace Server.Data
                         {
                             case "/message":
                                 {
-                                    result = method[1].Substring(1, method[1].Length - 2);
-                                    MessageBox.Show(result);
+                                    string message = method[1].Substring(1, method[1].Length - 2);
+                                    string login = method[3].Substring(1, method[3].Length - 2);
+                                    string chatId = method[5].Substring(1, method[5].Length - 2);
+
+                                    MessageBox.Show("login: " + login + "\nchat id: " + chatId + "\nmessage: " + message);
 
                                     break;
                                 }
@@ -70,7 +67,10 @@ namespace Server.Data
                             case "/auth":
                                 {
                                     result = method[1].Substring(1, method[1].Length - 2);
-                                    MessageBox.Show(result);
+
+                                    //respond to client
+                                    string respond = "True";
+                                    socket.Send(Encoding.UTF8.GetBytes(respond));
 
                                     break;
                                 }

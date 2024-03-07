@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Presale.Data
@@ -27,25 +23,29 @@ namespace Presale.Data
                 MessageBox.Show(ex.Message, "Error");
             }
         }
-        public void CheckAuth(string login, string password)
+        public string CheckAuth(string login, string password)
         {
+            string respond = "False";
             socket = client.Client;
             try
             {
                 string requestAuth = "/auth:[login " + login + "\npassword " + password + "]";
-                MessageBox.Show(requestAuth);
-
                 socket.Send(Encoding.UTF8.GetBytes(requestAuth));
+
+                //wait respond
+                byte[] buf = new byte[1024];
+                int received = socket.Receive(buf);
+                respond = Encoding.UTF8.GetString(buf, 0, received);
+
+                return respond;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Send failed\n" + ex.Message, "Error");
                 if (!socket.Connected)
-                {
-                    return;
-                }
+                    return respond;
             }
-            return;
+            return respond;
         }
         public void SendServerMessage(string userLogin, string chatId, string message)
         {
@@ -54,7 +54,7 @@ namespace Presale.Data
             {
                 try
                 {
-                    string requestMessage = "/message:[" + message + "]";
+                    string requestMessage = "/message:[" + message + "]" + ":/login:[" + userLogin + "]" + ":/chatId:[" + chatId + "]";
 
                     socket.Send(Encoding.UTF8.GetBytes(requestMessage));
                 }
@@ -62,9 +62,7 @@ namespace Presale.Data
                 {
                     MessageBox.Show("Send failed\n" + ex.Message, "Error");
                     if (!socket.Connected)
-                    {
                         return;
-                    }
                 }
             }
         }
@@ -83,9 +81,7 @@ namespace Presale.Data
                 {
                     MessageBox.Show("Send failed\n" + ex.Message, "Error");
                     if (!socket.Connected)
-                    {
                         return;
-                    }
                 }
             }
         }
