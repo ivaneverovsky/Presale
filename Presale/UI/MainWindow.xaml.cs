@@ -29,10 +29,18 @@ namespace Presale
             string message = txtMessage.Text;
             if (message != "")
             {
-                server.SendServerRequest(message);
+                server.SendServerMessage(message);
 
                 txtMessage.Clear();
                 txtMessage.Focus();
+            }
+        }
+        public void FilterChat(object sender, TextChangedEventArgs e)
+        {
+            string filter = txtFilter.Text;
+            if (filter != "")
+            {
+                server.SendServerFilter(filter);
             }
         }
     }

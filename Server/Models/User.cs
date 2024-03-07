@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Server.Models
+﻿namespace Server.Models
 {
     internal class User
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
@@ -16,9 +9,10 @@ namespace Server.Models
         public string AccountType { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public User(int id, string name, string surname, string email, string phone, string accountType, string login, string password)
+        public string Department { get; set; }
+        public string Occupation { get; set; }
+        public User(string name, string surname, string email, string phone, string accountType, string login, string password, string department, string occupation)
         {
-            Id = id;
             Name = name;
             Surname = surname;
             Email = email;
@@ -26,6 +20,8 @@ namespace Server.Models
             AccountType = accountType;
             Login = login;
             Password = password;
+            Department = department;
+            Occupation = occupation;
         }
     }
 }

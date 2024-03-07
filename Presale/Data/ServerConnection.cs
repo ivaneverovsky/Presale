@@ -28,14 +28,42 @@ namespace Presale.Data
             }
         }
 
-        public void SendServerRequest(string message)
+        public void SendServerMessage(string message)
         {
             socket = client.Client;
             if (message != "")
             {
                 try
                 {
-                    socket.Send(Encoding.ASCII.GetBytes(message));
+                    string requestMessage = "/message:[" + message + "]";
+
+                    socket.Send(Encoding.UTF8.GetBytes(requestMessage));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Send failed\n" + ex.Message, "Error");
+                    if (!socket.Connected)
+                    {
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void SendServerFilter(string filter)
+        {
+            socket = client.Client;
+            if (filter != "")
+            {
+                try
+                {
+                    string requestFilter = "/filter:[" + filter + "]";
+
+                    socket.Send(Encoding.UTF8.GetBytes(requestFilter));
                 }
                 catch (Exception ex)
                 {

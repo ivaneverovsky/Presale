@@ -102,7 +102,7 @@
                 <TabItem.Content>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel x:Name="REQUESTS" Orientation="Vertical">
-                            <TextBox x:Name="txtFilter" HorizontalAlignment="Left" Margin="0,0,0,0" Width="200" ToolTip="Поиск запроса"/>
+                            <TextBox x:Name="txtFilter" TextChanged="FilterChat" HorizontalAlignment="Left" Margin="0,0,0,0" Width="200" ToolTip="Поиск запроса"/>
                             <ListView x:Name="requestsListView" Height="500" Width="200">
                                 <!--<ListView.View>
                                     <GridView>

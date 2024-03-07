@@ -14,23 +14,23 @@ namespace Server.Data
         const int PortNum = 25000;
         const int InByfferSize = 1024;
 
+        TcpListener listener = new TcpListener(IPAddress.Any, PortNum);
+
         Socket? socket;
 
         public void ConnectClient()
         {
-            TcpListener listener = new TcpListener(IPAddress.Any, PortNum);
             listener.Start();
-           // MessageBox.Show("Waiting for connection", "Server alert");
 
             socket = listener.AcceptSocket();
             MessageBox.Show("Client connected", "Server alert");
         }
 
-        public async Task ReceiveClientRequest()
+        public async Task ReceiveClientRequests()
         {
             while (true)
             {
-                await Task.Delay(3000);
+                await Task.Delay(5000);
                 await Task.Run(() => ReadRequest());
             }
         }
@@ -47,7 +47,29 @@ namespace Server.Data
                     if (received > 0)
                     {
                         request = Encoding.UTF8.GetString(buf, 0, received);
-                        MessageBox.Show(request, "Server alert");
+
+                        string[] method = request.Split(':');
+                        string result = method[0];
+
+                        switch (result)
+                        {
+                            case "/message":
+                                {
+                                    result = method[1].Substring(1, method[1].Length - 2);
+
+                                    MessageBox.Show(result);
+                                    break;
+                                }
+                            case "/filter":
+                                {
+                                    result = method[1].Substring(1, method[1].Length - 2);
+
+                                    MessageBox.Show(result);
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
                     }
                 }
             }

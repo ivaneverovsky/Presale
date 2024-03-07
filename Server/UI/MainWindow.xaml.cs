@@ -13,21 +13,21 @@ using System.Windows.Shapes;
 
 namespace Server
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         ClientConnection client = new ClientConnection();
+        DBConnection _db = new DBConnection();
         public MainWindow()
         {
             InitializeComponent();
-            client.ConnectClient();
         }
 
         public async void StartReceivingRequest(object sender, RoutedEventArgs e)
         {
-            await client.ReceiveClientRequest();
+            await _db.CreateConnection();
+
+            client.ConnectClient();
+            await client.ReceiveClientRequests();
         }
     }
 }

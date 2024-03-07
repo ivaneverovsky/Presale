@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Server"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Presale Server" Height="450" Width="800">
     <Grid>
         <Button Content="Start server" Click="StartReceivingRequest" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
