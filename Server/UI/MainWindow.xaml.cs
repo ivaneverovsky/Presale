@@ -19,8 +19,11 @@ namespace Server
         DBConnection _db = new DBConnection();
         public MainWindow()
         {
-            InitializeComponent();
             StartServer();
+
+            InitializeComponent();
+
+            Hide();
         }
 
         public void StartReceivingRequest(object sender, RoutedEventArgs e)
