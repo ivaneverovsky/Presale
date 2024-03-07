@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Presale.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,20 @@ namespace Presale
     /// </summary>
     public partial class MainWindow : Window
     {
+        ServerConnection server = new ServerConnection();
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public void Connection(object sender, RoutedEventArgs e)
+        {
+            server.ConnectServer();
+        }
+        public void SendMessage(object sender, RoutedEventArgs e)
+        {
+            server.SendServerRequest(txtMessage.Text);
+            txtMessage.Clear();
         }
     }
 }

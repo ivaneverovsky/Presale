@@ -120,9 +120,9 @@
                                 </ListView.View>-->
                             </ListView>
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="📎" HorizontalAlignment="Center" Width="20" ToolTip="Прикрепить файл"/>
+                                <Button Content="📎" HorizontalAlignment="Center" Click="Connection" Width="20" ToolTip="Прикрепить файл"/>
                                 <TextBox x:Name="txtMessage" HorizontalAlignment="Left" Width="700" ToolTip="Введите текст сообщения"/>
-                                <Button Content="Отправить" HorizontalAlignment="Center" Width="60" ToolTip="Отправить сообщение"/>
+                                <Button Content="Отправить" HorizontalAlignment="Center" Width="60" Click="SendMessage" ToolTip="Отправить сообщение"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel x:Name="DATA" Orientation="Vertical">

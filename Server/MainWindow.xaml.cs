@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Server.Data;
+using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +18,16 @@ namespace Server
     /// </summary>
     public partial class MainWindow : Window
     {
+        ClientConnection client = new ClientConnection();
         public MainWindow()
         {
             InitializeComponent();
+            client.ConnectClient();
+        }
+
+        public void StartReceivingRequest(object sender, RoutedEventArgs e)
+        {
+            client.ReceiveClientRequest();
         }
     }
 }
