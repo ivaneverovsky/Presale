@@ -29,15 +29,19 @@ namespace Presale.Data
             socket = client.Client;
             try
             {
-                string requestAuth = "/auth:[login " + login + "\npassword " + password + "]";
+                string requestAuth = "/auth:/login:[" + login + "]" + ":/password:[" + password + "]";
                 socket.Send(Encoding.UTF8.GetBytes(requestAuth));
 
                 //wait respond
                 byte[] buf = new byte[1024];
                 int received = socket.Receive(buf);
                 respond = Encoding.UTF8.GetString(buf, 0, received);
+                string[] method = respond.Split(':');
 
-                return respond;
+                if (respond == "False")
+                    return respond;
+                else
+                    return method[19].Substring(1, method[19].Length - 2);
             }
             catch (Exception ex)
             {

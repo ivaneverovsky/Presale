@@ -21,7 +21,8 @@ namespace Presale.UI
                 UserLogin = txtLogin.Text;
                 UserPassword = txtPassword.Password;
 
-                Close();
+                txtPassword.Clear();
+                Hide();
             }
         }
         public void Register(object sender, RoutedEventArgs e)

@@ -16,11 +16,9 @@ namespace Server
     public partial class MainWindow : Window
     {
         ClientConnection client = new ClientConnection();
-        DBConnection _db = new DBConnection();
         public MainWindow()
         {
             StartServer();
-
             InitializeComponent();
 
             Hide();
@@ -36,8 +34,6 @@ namespace Server
 
         private async void StartServer()
         {
-            await _db.CreateConnection();
-
             client.ConnectClient();
             await client.ReceiveClientRequests();
         }

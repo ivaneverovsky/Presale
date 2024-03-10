@@ -25,6 +25,8 @@ namespace Presale
 
         public MainWindow()
         {
+            InitializeComponent();
+            _server.ConnectServer();
             _login.ShowDialog();
 
             bool bull = CheckAuth();
@@ -36,12 +38,11 @@ namespace Presale
                 _calc.AddAuth(_auth);
                 authList = _calc.CollectAuth();
 
-                InitializeComponent();
+                _login.Close();
             }
             else
             {
                 MessageBox.Show("Authorisation failed", "Error");
-                InitializeComponent();
             }
         }
 
@@ -53,12 +54,17 @@ namespace Presale
         {
             string chatId = "1";
             string message = txtMessage.Text;
-            if (message != "")
+            if (authList.Count != 0 && message != "")
             {
                 _server.SendServerMessage(authList[0].UserLogin, chatId, message);
 
                 txtMessage.Clear();
                 txtMessage.Focus();
+            }
+            else
+            {
+                MessageBox.Show("Authorise first", "Alert");
+                txtMessage.Clear();
             }
         }
         private void FilterChat(object sender, TextChangedEventArgs e)
@@ -73,21 +79,11 @@ namespace Presale
         {
             try
             {
-                string respond = "False";
-
-                _server.ConnectServer();
-                respond = _server.CheckAuth(_login.UserLogin, _login.UserPassword);
-
+                string respond = _server.CheckAuth(_login.UserLogin, _login.UserPassword);
                 if (respond == "True")
-                {
-                    //_server.DisconnectServer();
                     return true;
-                }
                 else
-                {
-                    //_server.DisconnectServer();
                     return false;
-                }
             }
             catch (Exception ex)
             {
