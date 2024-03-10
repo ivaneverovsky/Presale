@@ -21,7 +21,9 @@ namespace Presale.UI
                 UserLogin = txtLogin.Text;
                 UserPassword = txtPassword.Password;
 
+                txtLogin.Clear();
                 txtPassword.Clear();
+
                 Hide();
             }
         }

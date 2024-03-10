@@ -10,7 +10,6 @@ namespace Presale.Data
         const int PortNum = 25000;
         Socket? socket;
         TcpClient client = new TcpClient();
-
         public void ConnectServer()
         {
             try
@@ -35,13 +34,7 @@ namespace Presale.Data
                 //wait respond
                 byte[] buf = new byte[1024];
                 int received = socket.Receive(buf);
-                respond = Encoding.UTF8.GetString(buf, 0, received);
-                string[] method = respond.Split(':');
-
-                if (respond == "False")
-                    return respond;
-                else
-                    return method[19].Substring(1, method[19].Length - 2);
+                return respond = Encoding.UTF8.GetString(buf, 0, received);
             }
             catch (Exception ex)
             {
