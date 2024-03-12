@@ -12,6 +12,10 @@ namespace Presale.UI
 
             UserLogin = userLogin;
             UserPassword = userPassword;
+
+            //remove before prod
+            txtLogin.Text = "ivaneverovsky";
+            txtPassword.Password = "admin";
         }
 
         public void SignIn(object sender, RoutedEventArgs e)

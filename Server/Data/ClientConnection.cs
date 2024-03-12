@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Server.Models;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
@@ -69,6 +70,13 @@ namespace Server.Data
                                     string password = method[4].Substring(1, method[4].Length - 2);
 
                                     string respond = await Task.Run(() => _calc.CheckAuth(login, password));
+                                    SendRespond(respond);
+
+                                    break;
+                                }
+                            case "/contacts":
+                                {
+                                    string respond = await Task.Run(() => _calc.CollectContacts());
                                     SendRespond(respond);
 
                                     break;

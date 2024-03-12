@@ -16,5 +16,9 @@ namespace Server.Data
         private List<Authorisation> _auth = new List<Authorisation>();
         public List<Authorisation> Auth { get { return _auth; } }
         public void AddAuth(Authorisation auth) { _auth.Add(auth); }
+
+        private List<Contacts> _contacts = new List<Contacts>();
+        public List<Contacts> Contacts { get {  return _contacts; } }
+        public void AddContact(Contacts contact) {  _contacts.Add(contact); }
     }
 }

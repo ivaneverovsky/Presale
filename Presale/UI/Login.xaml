@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Login" Height="450" Width="800">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Margin="288,177,0,0" TextWrapping="Wrap" Name="txtLogin" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="288,177,0,0" TextWrapping="NoWrap" Name="txtLogin" VerticalAlignment="Top" Width="120"/>
         <PasswordBox HorizontalAlignment="Left" Margin="288,200,0,0" Name="txtPassword" VerticalAlignment="Top" Width="120"/>
         <Label Content="login" HorizontalAlignment="Left" Margin="246,173,0,0" VerticalAlignment="Top"/>
         <Label Content="password" HorizontalAlignment="Left" Margin="222,196,0,0" VerticalAlignment="Top"/>

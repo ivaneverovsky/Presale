@@ -34,18 +34,51 @@ namespace Server.Data
                     true);
                 _stor.AddAuth(auth);
 
+                dbData.Clear();
                 respond = BuildAuthRespond(auth);
-                return respond;
             }
-
             return respond;
         }
-        public string BuildAuthRespond(Authorisation auth)
+        private string BuildAuthRespond(Authorisation auth)
         {
             string respond = "name:[" + auth.Name + "]:surname:[" + auth.Surname + "]:email:[" + auth.Email + "]:phone:[" + auth.Phone + "]:accountType:[" + auth.AccountType + "]:login:[" + auth.Login + "]:passwprd:[" + auth.Password + "]:department:[" + auth.Department + "]:occupation:[" + auth.Occupation +  "]:authorised:[" + auth.Authorised + "]";
-            
 
             return respond;
         }
+        public async Task<string> CollectContacts()
+        {
+            string request = @"SELECT UserName, UserSurname, Department, Occupation FROM [Presale].[dbo].[Users]";
+            string respond = "False";
+
+            await _db.CreateConnection();
+            dbData = await _db.SendCommandRequest(request);
+            _db.CloseConnection();
+
+            if (dbData != null)
+            {
+                for (int i = 0; i < dbData.Count; i++)
+                {
+                    object[] value = (object[])dbData[i];
+                    var contact = new Contacts(
+                        value[0].ToString() + " " + value[1].ToString(),
+                        value[2].ToString(),
+                        value[3].ToString()
+                        );
+                    _stor.AddContact(contact);
+                }
+                dbData.Clear();
+                respond = BuildContactsRespond(_stor.Contacts);
+            }
+            return respond;
+        }
+        private string BuildContactsRespond(List<Contacts> contacts)
+        {
+            string respond = "";
+            for (int i = 0; i < contacts.Count; i++)
+                respond += "FullName:[" + contacts[i].FullName + "]:Department:[" + contacts[i].Department + "]:Occupation:[" + contacts[i].Occupation + "]\n";
+
+
+            return respond;
+        } 
     }
 }

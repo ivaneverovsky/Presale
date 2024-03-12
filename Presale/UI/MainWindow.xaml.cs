@@ -55,5 +55,26 @@ namespace Presale
                 _server.SendServerFilter(filter);
             }
         }
+        private void CreateRequest(object sender, RoutedEventArgs e)
+        {
+            if (authList.Count != 0)
+            {
+                NewRequest newRequestWindow = new NewRequest();
+                string respond = _server.GetContacts("/contacts");
+
+                newRequestWindow.ShowDialog();
+
+                _server.CreateRequest();
+            }
+            else
+            {
+                MessageBox.Show("Authorisation first", "Alert");
+                return;
+            }
+        }
+        private void AttachFileToMessage(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("oh, shit. here we go again.", "Alert");
+        }
     }
 }
