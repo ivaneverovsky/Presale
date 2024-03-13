@@ -1,7 +1,11 @@
-﻿using Server.Models;
+﻿using Newtonsoft.Json;
+using Server.Models;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 
 namespace Server.Data
@@ -76,7 +80,8 @@ namespace Server.Data
                                 }
                             case "/contacts":
                                 {
-                                    string respond = await Task.Run(() => _calc.CollectContacts());
+                                    List<Contacts> contacts = await Task.Run(() => _calc.CollectContacts());
+                                    string respond = JsonConvert.SerializeObject(contacts);
                                     SendRespond(respond);
 
                                     break;
@@ -96,10 +101,8 @@ namespace Server.Data
         {
             try
             {
-                if (/*socket?.Available > 0 || */socket != null)
-                {
+                if (socket != null)
                     socket.Send(Encoding.UTF8.GetBytes(respond));
-                }
             }
             catch (Exception ex)
             {

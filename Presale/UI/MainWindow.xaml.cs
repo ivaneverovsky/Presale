@@ -1,4 +1,5 @@
 ﻿using Presale.Data;
+using Presale.Models;
 using Presale.UI;
 using System.Windows;
 using System.Windows.Controls;
@@ -59,12 +60,23 @@ namespace Presale
         {
             if (authList.Count != 0)
             {
-                NewRequest newRequestWindow = new NewRequest();
-                string respond = _server.GetContacts("/contacts");
+                NewRequest nr = new NewRequest();
 
-                newRequestWindow.ShowDialog();
+                List<Contacts> contacts = _server.GetContacts("/contacts");
+                if (contacts != null)
+                {
+                    foreach (Contacts contact in contacts)
+                        _calc.AddContacts(contact);
+                    
+                    nr.DataContext = contacts;
+                    nr.BuildUI();
+                    nr.ShowDialog();
+                }
 
-                _server.CreateRequest();
+                if (nr.RequestName != null && nr.RequestMessage != null)
+                {
+                    _server.CreateRequest();
+                }
             }
             else
             {

@@ -1,6 +1,11 @@
-﻿using System.Net;
+﻿using Newtonsoft.Json;
+using Presale.Models;
+using System.IO;
+using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 
 namespace Presale.Data
@@ -44,9 +49,9 @@ namespace Presale.Data
             }
             return respond;
         }
-        public string GetContacts(string request)
+        public List<Contacts> GetContacts(string request)
         {
-            string respond = "False";
+            List<Contacts>? contacts = [];
             socket = client.Client;
             try
             {
@@ -55,15 +60,15 @@ namespace Presale.Data
                 //wait respond
                 byte[] buf = new byte[1024];
                 int received = socket.Receive(buf);
-                return respond = Encoding.UTF8.GetString(buf, 0, received);
+                string json = Encoding.UTF8.GetString(buf, 0, received);
+
+                contacts = JsonConvert.DeserializeObject<List<Contacts>>(json);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Send failed\n" + ex.Message, "Error");
-                if (!socket.Connected)
-                    return respond;
             }
-            return respond;
+            return contacts;
         }
         public void SendServerMessage(string userLogin, string chatId, string message)
         {

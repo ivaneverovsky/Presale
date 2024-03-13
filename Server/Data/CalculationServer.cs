@@ -1,4 +1,8 @@
 ﻿using Server.Models;
+using System.IO;
+using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows;
 
 namespace Server.Data
 {
@@ -45,10 +49,10 @@ namespace Server.Data
 
             return respond;
         }
-        public async Task<string> CollectContacts()
+        public async Task<List<Contacts>> CollectContacts()
         {
-            string request = @"SELECT UserName, UserSurname, Department, Occupation FROM [Presale].[dbo].[Users]";
-            string respond = "False";
+            string request = @"SELECT UserName, UserSurname, Login, Department, Occupation FROM [Presale].[dbo].[Users]";
+            List<Contacts> respond = [];
 
             await _db.CreateConnection();
             dbData = await _db.SendCommandRequest(request);
@@ -62,23 +66,15 @@ namespace Server.Data
                     var contact = new Contacts(
                         value[0].ToString() + " " + value[1].ToString(),
                         value[2].ToString(),
-                        value[3].ToString()
+                        value[3].ToString(),
+                        value[4].ToString()
                         );
                     _stor.AddContact(contact);
                 }
                 dbData.Clear();
-                respond = BuildContactsRespond(_stor.Contacts);
+                respond = _stor.Contacts;
             }
             return respond;
         }
-        private string BuildContactsRespond(List<Contacts> contacts)
-        {
-            string respond = "";
-            for (int i = 0; i < contacts.Count; i++)
-                respond += "FullName:[" + contacts[i].FullName + "]:Department:[" + contacts[i].Department + "]:Occupation:[" + contacts[i].Occupation + "]\n";
-
-
-            return respond;
-        } 
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Presale.Data
+﻿namespace Presale.Models
 {
     internal class Authentification
     {
