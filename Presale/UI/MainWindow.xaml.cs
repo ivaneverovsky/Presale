@@ -1,4 +1,5 @@
-﻿using Presale.Data;
+﻿using Microsoft.Win32;
+using Presale.Data;
 using Presale.Models;
 using Presale.UI;
 using System.Windows;
@@ -10,10 +11,11 @@ namespace Presale
     {
         ServerConnection _server = new ServerConnection();
         Calculation _calc = new Calculation();
-
-        private readonly List<Authentification> authList = new List<Authentification>();
+        FileLoader _fl = new FileLoader();
 
         Login _login = new Login("", "");
+
+        private readonly List<Authentification> authList = new List<Authentification>();
 
         public MainWindow()
         {
@@ -66,15 +68,19 @@ namespace Presale
                 if (contacts != null)
                 {
                     foreach (Contacts contact in contacts)
-                        _calc.AddContacts(contact);
-                    
-                    nr.DataContext = contacts;
+                        if (contact.Login != authList[0].Login)
+                            _calc.AddContacts(contact);
+
+                    nr.DataContext = _calc.CollectContacts();
                     nr.BuildUI();
                     nr.ShowDialog();
                 }
 
                 if (nr.RequestName != null && nr.RequestMessage != null)
                 {
+                    if (nr.RequestFiles != null)
+                        _fl.Load(nr.RequestFiles);
+
                     _server.CreateRequest();
                 }
             }
@@ -86,7 +92,17 @@ namespace Presale
         }
         private void AttachFileToMessage(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("oh, shit. here we go again.", "Alert");
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "Excel files|*.xlsx;*.xlsb;*.xls|Word files|*.doc;*.docx|All files (*.*)|*.*",
+                Multiselect = true
+            };
+            ofd.ShowDialog();
+
+            if (ofd.FileName == "")
+                return;
+
+            _fl.Load(ofd);
         }
     }
 }
