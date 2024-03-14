@@ -49,16 +49,18 @@ namespace Server.Data
 
             return respond;
         }
-        public async Task<List<Contacts>> CollectContacts()
+        public async Task RequestContacts()
         {
             string request = @"SELECT UserName, UserSurname, Login, Department, Occupation FROM [Presale].[dbo].[Users]";
-            List<Contacts> respond = [];
 
             await _db.CreateConnection();
             dbData = await _db.SendCommandRequest(request);
             _db.CloseConnection();
-
-            if (dbData != null)
+        }
+        public List<Contacts> CollectContacts()
+        {
+            List<Contacts> respond = [];
+            if (dbData != null && _stor.Contacts.Count == 0)
             {
                 for (int i = 0; i < dbData.Count; i++)
                 {
@@ -72,8 +74,8 @@ namespace Server.Data
                     _stor.AddContact(contact);
                 }
                 dbData.Clear();
-                respond = _stor.Contacts;
             }
+            respond = _stor.Contacts;
             return respond;
         }
     }

@@ -36,5 +36,6 @@ namespace Presale.Data
         public List<Authentification> CollectAuth() { return _stor.Auth; }
         public void AddContacts(Contacts contact) { _stor.AddContacts(contact); }
         public List<Contacts> CollectContacts() { return _stor.Contacts; }
+        public void ClearContacts() { _stor.RemoveContacts(); }
     }
 }

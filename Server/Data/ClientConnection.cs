@@ -80,7 +80,8 @@ namespace Server.Data
                                 }
                             case "/contacts":
                                 {
-                                    List<Contacts> contacts = await Task.Run(() => _calc.CollectContacts());
+                                    await Task.Run(() => _calc.RequestContacts());
+                                    List<Contacts> contacts = _calc.CollectContacts();
                                     string respond = JsonConvert.SerializeObject(contacts);
                                     SendRespond(respond);
 

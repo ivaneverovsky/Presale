@@ -67,6 +67,7 @@ namespace Presale
                 List<Contacts> contacts = _server.GetContacts("/contacts");
                 if (contacts != null)
                 {
+                    _calc.ClearContacts();
                     foreach (Contacts contact in contacts)
                         if (contact.Login != authList[0].Login)
                             _calc.AddContacts(contact);
