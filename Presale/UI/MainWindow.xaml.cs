@@ -79,10 +79,15 @@ namespace Presale
 
                 if (nr.RequestName != null && nr.RequestMessage != null)
                 {
+                    string userLogin = authList[0].Login;
+                    string requestName = nr.RequestName;
+                    string requestMessage = nr.RequestMessage;
+                    string? requestMembers = nr.RequestMembers;
+
                     if (nr.RequestFiles != null)
                         _fl.Load(nr.RequestFiles);
 
-                    _server.CreateRequest();
+                    _server.CreateRequest(userLogin, requestName, requestMessage, requestMembers);
                 }
             }
             else

@@ -1,8 +1,4 @@
 ﻿using Server.Models;
-using System.IO;
-using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Windows;
 
 namespace Server.Data
 {
@@ -13,6 +9,7 @@ namespace Server.Data
 
         private List<object> dbData = new List<object>();
 
+        //auth
         public async Task<string> CheckAuth(string login, string password)
         {
             string request = @"SELECT * FROM [Presale].[dbo].[Users] WHERE login = '" + login + "' AND password = '" + password + "'";
@@ -49,6 +46,8 @@ namespace Server.Data
 
             return respond;
         }
+        
+        //contacts
         public async Task RequestContacts()
         {
             string request = @"SELECT UserName, UserSurname, Login, Department, Occupation FROM [Presale].[dbo].[Users]";
@@ -77,6 +76,16 @@ namespace Server.Data
             }
             respond = _stor.Contacts;
             return respond;
+        }
+
+        //new request
+        public async Task CreateRequest()
+        {
+            string request = @"";
+
+            await _db.CreateConnection();
+            dbData = await _db.SendCommandRequest(request);
+            _db.CloseConnection();
         }
     }
 }

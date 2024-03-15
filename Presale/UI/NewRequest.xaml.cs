@@ -114,7 +114,7 @@ namespace Presale.UI
                 RequestMessage = txtRequestMessage.Text;
 
                 foreach (Contacts contact in listViewRequestMembers.Items)
-                    RequestMembers += contact.Login.ToString() + ":";
+                    RequestMembers += contact.Login.ToString() + ";";
 
                 RequestMembers = RequestMembers?.Remove(RequestMembers.Length - 1);
                 Close();

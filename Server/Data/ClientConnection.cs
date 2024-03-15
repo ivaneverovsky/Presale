@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Server.Models;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Text.Json;
 using System.Windows;
 
 namespace Server.Data
@@ -56,8 +53,6 @@ namespace Server.Data
                                     string login = method[3].Substring(1, method[3].Length - 2);
                                     string chatId = method[5].Substring(1, method[5].Length - 2);
 
-                                    MessageBox.Show("login: " + login + "\nchat id: " + chatId + "\nmessage: " + message);
-
                                     break;
                                 }
                             case "/filter":
@@ -84,6 +79,15 @@ namespace Server.Data
                                     List<Contacts> contacts = _calc.CollectContacts();
                                     string respond = JsonConvert.SerializeObject(contacts);
                                     SendRespond(respond);
+
+                                    break;
+                                }
+                            case "/newRequest":
+                                {
+                                    string login = method[2].Substring(1, method[2].Length - 2);
+                                    string requestName = method[4].Substring(1, method[4].Length - 2);
+                                    string requestMessage = method[6].Substring(1, method[6].Length - 2);
+                                    string requestMembers = method[8].Substring(1, method[8].Length - 2);
 
                                     break;
                                 }

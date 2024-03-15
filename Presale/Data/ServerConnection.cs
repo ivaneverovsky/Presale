@@ -86,12 +86,16 @@ namespace Presale.Data
                     return;
             }
         }
-        public void CreateRequest()
+        public void CreateRequest(string userLogin, string requestName, string requestMessage, string? requestMembers)
         {
             socket = client.Client;
             try
             {
-                string request = "";
+                string request = 
+                    "/newRequest:/login:[" + userLogin + "]" 
+                    + ":/requestName:[" + requestName + "]" 
+                    + ":/requestMessage:[" + requestMessage + "]"
+                    + ":/requestMembers:[" + requestMembers + "]";
 
                 socket.Send(Encoding.UTF8.GetBytes(request));
             }

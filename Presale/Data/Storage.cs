@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Presale.Models;
+﻿using Presale.Models;
 
 namespace Presale.Data
 {
@@ -16,6 +11,6 @@ namespace Presale.Data
         private List<Contacts> _contacts = new List<Contacts>();
         public List<Contacts> Contacts { get { return _contacts; } }
         public void AddContacts(Contacts contacts) { _contacts.Add(contacts); }
-        public void RemoveContacts() { _contacts.Clear(); Contacts.Clear(); }
+        public void RemoveContacts() { _contacts.Clear(); }
     }
 }
