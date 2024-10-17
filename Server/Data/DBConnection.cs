@@ -22,7 +22,7 @@ namespace Server.Data
         public async Task CreateConnection()
         {
             //connection = new OleDbConnection(@"Provider = SQLOLEDB.1; Persist Security Info = False; Trusted_Connection = Yes; User ID = " + Login + "; Password = " + Pass + "; Initial Catalog = SnegirSoft_Prod; Data Source = " + DB);
-            connection = new OleDbConnection(@"Provider=MSOLEDBSQL.1;Initial Catalog=Presale;Data Source=(localdb)\MSSQLLocalDB;Trusted_Connection=Yes;Persist Security Info=False");
+            connection = new OleDbConnection(@"Provider=MSOLEDBSQL.1;Data Source=HOME-PC\SQLEXPRESS;Trusted_Connection=Yes;Persist Security Info=False");
 
             try
             {

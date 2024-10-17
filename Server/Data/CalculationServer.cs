@@ -12,7 +12,7 @@ namespace Server.Data
         //auth
         public async Task<string> CheckAuth(string login, string password)
         {
-            string request = @"SELECT * FROM [Presale].[dbo].[Users] WHERE login = '" + login + "' AND password = '" + password + "'";
+            string request = @"SELECT * FROM [presaledb].[dbo].[Users] WHERE login = '" + login + "' AND password = '" + password + "'";
             string respond = "False";
 
             await _db.CreateConnection();
@@ -50,7 +50,7 @@ namespace Server.Data
         //contacts
         public async Task RequestContacts()
         {
-            string request = @"SELECT UserName, UserSurname, Login, Department, Occupation FROM [Presale].[dbo].[Users]";
+            string request = @"SELECT Name, Surname, Login, Department, Occupation FROM [presaledb].[dbo].[Users]";
 
             await _db.CreateConnection();
             dbData = await _db.SendCommandRequest(request);
