@@ -89,6 +89,9 @@ namespace Server.Data
                                     string requestMessage = method[6].Substring(1, method[6].Length - 2);
                                     string requestMembers = method[8].Substring(1, method[8].Length - 2);
 
+                                    string respond = await Task.Run(() => _calc.CreateRequest());
+                                    SendRespond(respond);
+
                                     break;
                                 }
                             default:

@@ -86,8 +86,9 @@ namespace Presale.Data
                     return;
             }
         }
-        public void CreateRequest(string userLogin, string requestName, string requestMessage, string? requestMembers)
+        public string CreateRequest(string userLogin, string requestName, string requestMessage, string? requestMembers)
         {
+            string respond = "False";
             socket = client.Client;
             try
             {
@@ -98,13 +99,19 @@ namespace Presale.Data
                     + ":/requestMembers:[" + requestMembers + "]";
 
                 socket.Send(Encoding.UTF8.GetBytes(request));
+
+                //wait respond
+                byte[] buf = new byte[1024];
+                int received = socket.Receive(buf);
+                return respond = Encoding.UTF8.GetString(buf, 0, received);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Send failed\n" + ex.Message, "Error");
                 if (!socket.Connected)
-                    return;
+                    return respond;
             }
+            return respond;
         }
         public void SendServerFilter(string filter)
         {

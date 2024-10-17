@@ -45,6 +45,8 @@ namespace Presale.UI
             foreach (var department in departments)
                 cmbDepartments.Items.Add(department);
         }
+        
+        //renew list on combobox change
         private void CMBSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             listViewUsersGroup.Items.Clear();

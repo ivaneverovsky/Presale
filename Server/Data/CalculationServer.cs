@@ -79,13 +79,16 @@ namespace Server.Data
         }
 
         //new request
-        public async Task CreateRequest()
+        public async Task<string> CreateRequest()
         {
             string request = @"";
+            string respond = "False";
 
-            await _db.CreateConnection();
-            dbData = await _db.SendCommandRequest(request);
-            _db.CloseConnection();
+            //await _db.CreateConnection();
+            //dbData = await _db.SendCommandRequest(request);
+            //_db.CloseConnection();
+
+            return respond;
         }
     }
 }
